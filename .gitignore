@@ -1,0 +1,11 @@
+__pycache__
+.penv
+*.pyc
+.tmp
+.vscode
+sampleData
+Lib
+Scripts
+pyvenv.cfg
+.env
+log/
