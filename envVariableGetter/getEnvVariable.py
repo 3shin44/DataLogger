@@ -1,11 +1,7 @@
 from dotenv import load_dotenv
 import os
-
-# 專案內部PY引用路徑
-import sys
-root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(root_dir)
-from logbox.logbox import loggerBox
+import importlib
+logbox = importlib.import_module('logbox.logbox')
 
 def getEnvVariable(envName):
     load_dotenv()
@@ -13,6 +9,6 @@ def getEnvVariable(envName):
     try:
         envValue = os.getenv(envName)
     except:
-        loggerBox(f'get env variable {envName} error')
+        logbox.loggerBox(f'get env variable {envName} error')
     finally:
         return envValue

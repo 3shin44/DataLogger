@@ -1,12 +1,8 @@
-# 專案內部PY引用路徑
-import sys
-import os
-root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(root_dir)
-from logbox.logbox import loggerBox
-
 from influxdb_client import InfluxDBClient
 from envVariableGetter.getEnvVariable import getEnvVariable
+
+import importlib
+logbox = importlib.import_module('logbox.logbox')
 
 def create_influxdb_client():
     # Get Env Variables
@@ -19,14 +15,14 @@ def create_influxdb_client():
     try:
         health = client.health()
         if health.status == "pass":
-            loggerBox(f"Connection pass. version: {health.version}")
+            logbox.loggerBox(f"Connection pass. version: {health.version}")
             return client
         else:
-            loggerBox("Connection error.", health.message)
+            logbox.loggerBox("Connection error.", health.message)
             client.close()
             return None
     except Exception as e:
-        loggerBox("Connection exception:", e)
+        logbox.loggerBox("Connection exception:", e)
         client.close()
         return None
     
